@@ -5,13 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1bd3d60e-8511-4c5d-ad7e-bf8d6eeee304" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/vallegrade/edu/pe/service/ReporteService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/vallegrade/edu/pe/view/LoginView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/vallegrade/edu/pe/view/MenuPrincipal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vallegrade/edu/pe/AppLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vallegrade/edu/pe/AppLauncher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/vallegrade/edu/pe/controller/ProductoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vallegrade/edu/pe/controller/ProductoController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/vallegrade/edu/pe/database/ConexionBD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vallegrade/edu/pe/database/ConexionBD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vallegrade/edu/pe/model/Producto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vallegrade/edu/pe/model/Producto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/vallegrade/edu/pe/model/ProductoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vallegrade/edu/pe/model/ProductoDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/vallegrade/edu/pe/service/ProductoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vallegrade/edu/pe/service/ProductoService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/vallegrade/edu/pe/view/FrmProducto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vallegrade/edu/pe/view/FrmProducto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vallegrade/edu/pe/controller/ClientesController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vallegrade/edu/pe/controller/ProductosController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vallegrade/edu/pe/view/ClientesView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vallegrade/edu/pe/view/ProductosView.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +30,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Record" />
         <option value="Class" />
       </list>
     </option>
@@ -38,6 +48,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.App.executor": "Run",
     "Application.AppLauncher.executor": "Run",
     "Application.FrmProducto.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -45,7 +56,7 @@
     "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/MATHEW/Desktop/POO/crudTienda_conca",
+    "last_opened_file_path": "C:/Users/MATHEW/Desktop/Proyecto_Team_8 Eva",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -56,6 +67,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="vallegrade.edu.pe.view" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="folderStructureMVC" />

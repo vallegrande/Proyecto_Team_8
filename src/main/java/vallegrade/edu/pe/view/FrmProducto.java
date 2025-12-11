@@ -9,6 +9,14 @@ import java.awt.*;
 import java.util.List;
 
 public class FrmProducto extends JFrame {
+    // Definir colores personalizados - Modo Oscuro
+    private static final Color COLOR_FONDO_OSCURO = new Color(43, 43, 43);
+    private static final Color COLOR_PANEL_OSCURO = new Color(60, 63, 65);
+    private static final Color COLOR_TEXTO_CLARO = new Color(187, 187, 187);
+    private static final Color COLOR_ACENTO = new Color(75, 110, 175);
+    private static final Color COLOR_CAMPO_TEXTO = new Color(69, 73, 74);
+    private static final Color COLOR_SELECCION = new Color(75, 110, 175);
+
     // Componentes de la tabla
     public JTable tabla;
     private DefaultTableModel modelo;
@@ -19,6 +27,10 @@ public class FrmProducto extends JFrame {
     public JButton btnActualizar;
     public JButton btnEliminar;
     public JButton btnLimpiar;
+    // AGREGAR ESTAS LÍNEAS:
+    public JButton btnGenerarPDF;
+    public JButton btnGenerarDOC;
+    public JButton btnGenerarExcel;
 
     // Campos de texto
     public JTextField txtId;
@@ -30,20 +42,41 @@ public class FrmProducto extends JFrame {
     public FrmProducto() {
         setTitle("Gestión de Productos");
         setSize(750, 500);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));
+
+        // Aplicar color de fondo al frame
+        getContentPane().setBackground(COLOR_FONDO_OSCURO);
 
         // ======= PANEL DE BÚSQUEDA =======
         JPanel panelBuscar = new JPanel(new BorderLayout(5, 5));
         panelBuscar.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-        panelBuscar.add(new JLabel("Buscar:"), BorderLayout.WEST);
+        panelBuscar.setBackground(COLOR_FONDO_OSCURO);
+
+        JLabel lblBuscar = new JLabel("Buscar:");
+        lblBuscar.setForeground(COLOR_TEXTO_CLARO);
+        lblBuscar.setFont(new Font("Arial", Font.BOLD, 12));
+        panelBuscar.add(lblBuscar, BorderLayout.WEST);
+
         txtBuscar = new JTextField();
+        txtBuscar.setBackground(COLOR_CAMPO_TEXTO);
+        txtBuscar.setForeground(COLOR_TEXTO_CLARO);
+        txtBuscar.setCaretColor(COLOR_TEXTO_CLARO);
+        txtBuscar.setBorder(BorderFactory.createLineBorder(COLOR_ACENTO, 2));
         panelBuscar.add(txtBuscar, BorderLayout.CENTER);
 
         // ======= PANEL DE FORMULARIO =======
         JPanel panelFormulario = new JPanel(new GridLayout(4, 2, 10, 10));
-        panelFormulario.setBorder(BorderFactory.createTitledBorder("Datos del Producto"));
+        panelFormulario.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createLineBorder(COLOR_ACENTO, 2),
+                "Datos del Producto",
+                0,
+                0,
+                new Font("Arial", Font.BOLD, 13),
+                COLOR_TEXTO_CLARO
+        ));
+        panelFormulario.setBackground(COLOR_FONDO_OSCURO);
 
         txtId = new JTextField();
         txtId.setEditable(false);
@@ -51,19 +84,41 @@ public class FrmProducto extends JFrame {
         txtPrecio = new JTextField();
         txtStock = new JTextField();
 
-        panelFormulario.add(new JLabel("ID:"));
+        // Estilizar campos de texto
+        estilizarCampoTexto(txtId);
+        estilizarCampoTexto(txtNombre);
+        estilizarCampoTexto(txtPrecio);
+        estilizarCampoTexto(txtStock);
+
+        // Crear y estilizar labels
+        JLabel lblId = crearLabel("ID:");
+        JLabel lblNombre = crearLabel("Nombre:");
+        JLabel lblPrecio = crearLabel("Precio:");
+        JLabel lblStock = crearLabel("Stock:");
+
+        panelFormulario.add(lblId);
         panelFormulario.add(txtId);
-        panelFormulario.add(new JLabel("Nombre:"));
+        panelFormulario.add(lblNombre);
         panelFormulario.add(txtNombre);
-        panelFormulario.add(new JLabel("Precio:"));
+        panelFormulario.add(lblPrecio);
         panelFormulario.add(txtPrecio);
-        panelFormulario.add(new JLabel("Stock:"));
+        panelFormulario.add(lblStock);
         panelFormulario.add(txtStock);
 
         // ======= PANEL DE TABLA =======
         modelo = new DefaultTableModel(new String[]{"ID", "Nombre", "Precio", "Stock"}, 0);
         tabla = new JTable(modelo);
         tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        // Estilizar tabla
+        tabla.setBackground(COLOR_PANEL_OSCURO);
+        tabla.setForeground(COLOR_TEXTO_CLARO);
+        tabla.setSelectionBackground(COLOR_SELECCION);
+        tabla.setSelectionForeground(Color.WHITE);
+        tabla.setGridColor(COLOR_FONDO_OSCURO);
+        tabla.getTableHeader().setBackground(COLOR_CAMPO_TEXTO);
+        tabla.getTableHeader().setForeground(COLOR_TEXTO_CLARO);
+        tabla.getTableHeader().setFont(new Font("Arial", Font.BOLD, 12));
 
         // Agregar listener para cargar datos en el formulario al seleccionar una fila
         tabla.getSelectionModel().addListSelectionListener(e -> {
@@ -72,18 +127,45 @@ public class FrmProducto extends JFrame {
             }
         });
 
+        JScrollPane scrollPane = new JScrollPane(tabla);
+        scrollPane.getViewport().setBackground(COLOR_PANEL_OSCURO);
+        scrollPane.setBorder(BorderFactory.createLineBorder(COLOR_ACENTO, 1));
+
         JPanel panelTabla = new JPanel(new BorderLayout());
-        panelTabla.setBorder(BorderFactory.createTitledBorder("Lista de Productos"));
-        panelTabla.add(new JScrollPane(tabla), BorderLayout.CENTER);
+        panelTabla.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createLineBorder(COLOR_ACENTO, 2),
+                "Lista de Productos",
+                0,
+                0,
+                new Font("Arial", Font.BOLD, 13),
+                COLOR_TEXTO_CLARO
+        ));
+        panelTabla.setBackground(COLOR_FONDO_OSCURO);
+        panelTabla.add(scrollPane, BorderLayout.CENTER);
 
         // ======= PANEL DE BOTONES =======
         JPanel panelBotones = new JPanel(new FlowLayout());
+        panelBotones.setBackground(COLOR_FONDO_OSCURO);
 
         btnAgregar = new JButton("Agregar");
         btnModificar = new JButton("Modificar");
         btnActualizar = new JButton("Actualizar");
         btnEliminar = new JButton("Eliminar");
         btnLimpiar = new JButton("Limpiar");
+        btnGenerarPDF = new JButton("PDF");
+        btnGenerarDOC = new JButton("DOC");
+        btnGenerarExcel = new JButton("Excel");
+
+        // Estilizar botones
+        estilizarBoton(btnAgregar);
+        estilizarBoton(btnModificar);
+        estilizarBoton(btnActualizar);
+        estilizarBoton(btnEliminar);
+        estilizarBoton(btnLimpiar);
+        // Estilizar los nuevos botones
+        estilizarBoton(btnGenerarPDF);
+        estilizarBoton(btnGenerarDOC);
+        estilizarBoton(btnGenerarExcel);
 
         // Agregar iconos a los botones (opcional)
         btnAgregar.setIcon(UIManager.getIcon("FileView.fileIcon"));
@@ -97,9 +179,12 @@ public class FrmProducto extends JFrame {
         panelBotones.add(btnActualizar);
         panelBotones.add(btnEliminar);
         panelBotones.add(btnLimpiar);
-
+        panelBotones.add(btnGenerarPDF);
+        panelBotones.add(btnGenerarDOC);
+        panelBotones.add(btnGenerarExcel);
         // ======= PANEL SUPERIOR (Búsqueda + Formulario) =======
         JPanel panelSuperior = new JPanel(new BorderLayout());
+        panelSuperior.setBackground(COLOR_FONDO_OSCURO);
         panelSuperior.add(panelBuscar, BorderLayout.NORTH);
         panelSuperior.add(panelFormulario, BorderLayout.CENTER);
 
@@ -113,6 +198,42 @@ public class FrmProducto extends JFrame {
 
         // ======= Iniciar controlador =======
         new ProductoController(this);
+    }
+
+    // ======= MÉTODOS DE ESTILIZACIÓN =======
+
+    private JLabel crearLabel(String texto) {
+        JLabel label = new JLabel(texto);
+        label.setForeground(COLOR_TEXTO_CLARO);
+        label.setFont(new Font("Arial", Font.BOLD, 12));
+        return label;
+    }
+
+    private void estilizarCampoTexto(JTextField campo) {
+        campo.setBackground(COLOR_CAMPO_TEXTO);
+        campo.setForeground(COLOR_TEXTO_CLARO);
+        campo.setCaretColor(COLOR_TEXTO_CLARO);
+        campo.setBorder(BorderFactory.createLineBorder(COLOR_ACENTO, 1));
+        campo.setFont(new Font("Arial", Font.PLAIN, 12));
+    }
+
+    private void estilizarBoton(JButton boton) {
+        boton.setBackground(COLOR_ACENTO);
+        boton.setForeground(Color.WHITE);
+        boton.setFont(new Font("Arial", Font.BOLD, 11));
+        boton.setFocusPainted(false);
+        boton.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
+        boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        // Efecto hover
+        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                boton.setBackground(COLOR_ACENTO.brighter());
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                boton.setBackground(COLOR_ACENTO);
+            }
+        });
     }
 
     // ======= MÉTODOS PÚBLICOS =======

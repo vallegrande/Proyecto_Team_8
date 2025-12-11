@@ -32,14 +32,14 @@ El patrón **MVC** divide una aplicación en tres componentes principales:
 
 ## 📁 Descripción de Carpetas
 
-### 📂 `controller/`  
+### 📂 `controller/`
 📌 *Responsabilidad:*  
 Gestiona las peticiones del usuario y coordina las acciones del modelo y la vista.  
 🛠️ *Estado:* Agregar y Editar (actualizado la semana pasada)
 
 ---
 
-### 📂 `model/`  
+### 📂 `model/`
 📌 *Responsabilidad:*  
 Contiene las clases que representan la estructura de los datos.  
 📊 *Ejemplo:* Clases que mapean las tablas de la base de datos.  
@@ -47,7 +47,7 @@ Contiene las clases que representan la estructura de los datos.
 
 ---
 
-### 📂 `service/`  
+### 📂 `service/`
 📌 *Responsabilidad:*  
 Encapsula la lógica del negocio. Actúa como puente entre el controlador y el modelo.  
 ♻️ *Ventaja:* Permite reutilizar reglas de negocio sin duplicar código.  
@@ -55,7 +55,7 @@ Encapsula la lógica del negocio. Actúa como puente entre el controlador y el m
 
 ---
 
-### 📂 `view/`  
+### 📂 `view/`
 📌 *Responsabilidad:*  
 Muestra los datos al usuario de forma amigable. Puede contener archivos HTML, CSS, JS, etc.  
 🖥️ *Enlace visual entre el usuario y la aplicación.*  
@@ -63,7 +63,7 @@ Muestra los datos al usuario de forma amigable. Puede contener archivos HTML, CS
 
 ---
 
-### 📂 `resources/sql/`  
+### 📂 `resources/sql/`
 📌 *Responsabilidad:*  
 Contiene los scripts SQL necesarios para la creación y mantenimiento de la base de datos.  
 🗄️ *Incluye:* Scripts de inserción, migración y consultas.  

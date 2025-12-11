@@ -9,17 +9,23 @@ import java.sql.DriverManager;
 
 public class ConexionBD {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/tienda";
-    private static final String USER =  "root";
-    private static final String PASS = "conca123";
+    private static final String URL = "jdbc:mysql://recuperacion.chvutexxetr1.us-east-1.rds.amazonaws.com/paleesdb";
+    private static final String USER =  "admin";
+    private static final String PASS = "ConcaFlores312007";
 
     public static Connection getConexion() {
         Connection con = null;
         try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(URL, USER, PASS);
-            System.out.println(" Conexión exitosa a la BD");
+            con.setAutoCommit(true);
+
+            // AGREGAR ESTO PARA VERIFICAR:
+            System.out.println("✅ Conexión exitosa a: " + URL);
+
         } catch (Exception e) {
-            System.out.println("Error en la conexión: " + e.getMessage());
+            System.err.println("❌ Error de conexión: " + e.getMessage());
+            e.printStackTrace();
         }
         return con;
     }

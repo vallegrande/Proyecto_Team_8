@@ -5,29 +5,29 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductoDAO {
+public class UsuarioDAO {
 
-    private static final String TABLE = "productos";
+    private static final String TABLE = "usuarios";
 
     // ========================= LISTAR =========================
-    public List<Producto> listar() {
-        List<Producto> lista = new ArrayList<>();
-        String sql = "SELECT * FROM " + TABLE;
+    public List<Usuario> listar() {
+        List<Usuario> lista = new ArrayList<>();
+        String sql = "SELECT id, nombre, email, 'Usuario' as rol FROM " + TABLE;
 
         try (Connection con = ConexionBD.getConexion();
              Statement st = con.createStatement();
              ResultSet rs = st.executeQuery(sql)) {
 
             while (rs.next()) {
-                Producto p = new Producto(
+                Usuario u = new Usuario(
                         rs.getInt("id"),
                         rs.getString("nombre"),
-                        rs.getDouble("precio"),
-                        rs.getInt("stock")
+                        rs.getString("email"),  // ✅ Cambié de "correo" a "email"
+                        rs.getString("rol")
                 );
-                lista.add(p);
+                lista.add(u);
             }
-            System.out.println("✅ Se obtuvieron " + lista.size() + " productos de la BD");
+            System.out.println("✅ Se obtuvieron " + lista.size() + " usuarios de la BD");
 
         } catch (Exception e) {
             System.out.println("❌ Error en listar(): " + e.getMessage());
@@ -38,19 +38,18 @@ public class ProductoDAO {
     }
 
     // ========================= AGREGAR =========================
-    public boolean agregar(Producto p) {
-        String sql = "INSERT INTO " + TABLE + " (nombre, precio, stock) VALUES (?, ?, ?)";
+    public boolean agregar(Usuario u) {
+        String sql = "INSERT INTO " + TABLE + " (nombre, email) VALUES (?, ?)";
 
         try (Connection con = ConexionBD.getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ps.setString(1, p.getNombre());
-            ps.setDouble(2, p.getPrecio());
-            ps.setInt(3, p.getStock());
+            ps.setString(1, u.getNombre());
+            ps.setString(2, u.getEmail());  // ✅ Correcto, usa getEmail()
 
             int resultado = ps.executeUpdate();
             if (resultado > 0) {
-                System.out.println("✅ Producto agregado correctamente");
+                System.out.println("✅ Usuario agregado correctamente");
             }
             return resultado > 0;
 
@@ -62,8 +61,8 @@ public class ProductoDAO {
     }
 
     // ======================= BUSCAR POR ID ======================
-    public Producto buscarPorId(int id) {
-        String sql = "SELECT * FROM " + TABLE + " WHERE id = ?";
+    public Usuario buscarPorId(int id) {
+        String sql = "SELECT id, nombre, email, 'Usuario' as rol FROM " + TABLE + " WHERE id=?";
 
         try (Connection con = ConexionBD.getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -72,11 +71,11 @@ public class ProductoDAO {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                return new Producto(
+                return new Usuario(
                         rs.getInt("id"),
                         rs.getString("nombre"),
-                        rs.getDouble("precio"),
-                        rs.getInt("stock")
+                        rs.getString("email"),  // ✅ Cambié de "correo" a "email"
+                        rs.getString("rol")
                 );
             }
 
@@ -84,24 +83,24 @@ public class ProductoDAO {
             System.out.println("❌ Error en buscarPorId(): " + e.getMessage());
             e.printStackTrace();
         }
+
         return null;
     }
 
     // ========================= ACTUALIZAR =========================
-    public boolean actualizar(Producto p) {
-        String sql = "UPDATE " + TABLE + " SET nombre=?, precio=?, stock=? WHERE id=?";
+    public boolean actualizar(Usuario u) {
+        String sql = "UPDATE " + TABLE + " SET nombre=?, email=? WHERE id=?";
 
         try (Connection con = ConexionBD.getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ps.setString(1, p.getNombre());
-            ps.setDouble(2, p.getPrecio());
-            ps.setInt(3, p.getStock());
-            ps.setInt(4, p.getId());
+            ps.setString(1, u.getNombre());
+            ps.setString(2, u.getEmail());  // ✅ Cambié de "correo" a "email"
+            ps.setInt(3, u.getId());
 
             int resultado = ps.executeUpdate();
             if (resultado > 0) {
-                System.out.println("✅ Producto actualizado correctamente");
+                System.out.println("✅ Usuario actualizado correctamente");
             }
             return resultado > 0;
 
@@ -124,7 +123,7 @@ public class ProductoDAO {
             int resultado = ps.executeUpdate();
 
             if (resultado > 0) {
-                System.out.println("✅ Producto eliminado correctamente");
+                System.out.println("✅ Usuario eliminado correctamente");
             }
             return resultado > 0;
 
@@ -137,27 +136,28 @@ public class ProductoDAO {
     }
 
     // ========================= BUSCAR TEXTO =========================
-    public List<Producto> buscar(String texto) {
-        List<Producto> lista = new ArrayList<>();
-        String sql = "SELECT * FROM " + TABLE +
-                " WHERE nombre LIKE ?";
+    public List<Usuario> buscar(String texto) {
+        List<Usuario> lista = new ArrayList<>();
+        String sql = "SELECT id, nombre, email, 'Usuario' as rol FROM " + TABLE +
+                " WHERE nombre LIKE ? OR email LIKE ?";  // ✅ Cambié de "correo" a "email"
 
         try (Connection con = ConexionBD.getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             String filtro = "%" + texto + "%";
             ps.setString(1, filtro);
+            ps.setString(2, filtro);
 
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Producto p = new Producto(
+                Usuario u = new Usuario(
                         rs.getInt("id"),
                         rs.getString("nombre"),
-                        rs.getDouble("precio"),
-                        rs.getInt("stock")
+                        rs.getString("email"),  // ✅ Cambié de "correo" a "email"
+                        rs.getString("rol")
                 );
-                lista.add(p);
+                lista.add(u);
             }
 
         } catch (Exception e) {

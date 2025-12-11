@@ -1,7 +1,7 @@
 package vallegrade.edu.pe.service;
 
 import vallegrade.edu.pe.model.Producto;
-import vallegrade.edu.pe.dao.ProductoDAO;  // ✅ Paquete corregido
+import vallegrade.edu.pe.model.ProductoDAO;
 
 import java.util.List;
 
